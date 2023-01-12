@@ -2,14 +2,14 @@
 
 ## Current variants
 
-### Ruby3.1
+### Ruby3.x
 
 Base box with nginx / puma.
 
 ## Usage
 
 ```docker
-FROM dustinscarberry/rails-base:ruby3.1
+FROM dustinscarberry/rails-base:ruby3.2
 
 # install app files
 WORKDIR /app
