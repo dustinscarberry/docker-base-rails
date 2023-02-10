@@ -1,7 +1,7 @@
 #!/bin/sh
 
-ruby31Version=ruby:3.1.3-alpine3.17
-ruby32Version=ruby:3.2-alpine3.17
+ruby31Version=ruby:3.1.3-alpine
+ruby32Version=ruby:3.2.1-alpine
 
 docker login
 
