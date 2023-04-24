@@ -1,6 +1,5 @@
-#!/usr/bin/with-contenv sh
+#!/command/with-contenv sh
 
 cd /app
-#rails s -b 0.0.0.0
 rails s
 echo "puma running"

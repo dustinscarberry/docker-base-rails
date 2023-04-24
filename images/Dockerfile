@@ -4,10 +4,19 @@ FROM $RUBY_VERSION
 
 # add s6 services
 COPY services.d /etc/services.d
+RUN chmod -R +x /etc/services.d
+
+# override service startup timeout
+ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0
 
 # add s6 overlay
-ADD https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.1/s6-overlay-amd64-installer /tmp/
-RUN chmod +x /tmp/s6-overlay-amd64-installer && /tmp/s6-overlay-amd64-installer /
+ADD https://github.com/just-containers/s6-overlay/releases/download/v3.1.4.1/s6-overlay-noarch.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v3.1.4.1/s6-overlay-x86_64.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
+
+# copy db migration script
+COPY migrations.sh /etc/cont-init.d/migrations.sh
 
 # install packages
 RUN apk add --no-cache nginx build-base mariadb-dev nodejs tzdata
@@ -19,9 +28,6 @@ COPY nginx/inc /etc/nginx/inc
 
 # fix nginx permissions
 RUN chown -R nginx:nginx /var/lib/nginx
-
-# copy db migration script
-COPY migrations.sh /etc/cont-init.d/migrations.sh
 
 EXPOSE 80
 
