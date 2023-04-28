@@ -17,6 +17,7 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 
 # copy db migration script
 COPY migrations.sh /etc/cont-init.d/migrations.sh
+RUN chmod -R +x /etc/cont-init.d/migrations.sh
 
 # install packages
 RUN apk add --no-cache nginx build-base mariadb-dev nodejs tzdata
